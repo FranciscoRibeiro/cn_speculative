@@ -7,6 +7,7 @@ class Constraint {
   public static final Integer GEQ     = 3;
   public static final Integer LT      = 4;
   public static final Integer GT      = 5;
+  public static final Integer EQ      = 6;
 
   private String parameter;
   private Integer constraintType;
