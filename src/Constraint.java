@@ -11,12 +11,12 @@ class Constraint {
 
   private String parameter;
   private Integer constraintType;
-  private List<String> values;
+  private String value;
 
-  public Constraint(String parameter, Integer constraint, List<String> values) {
+  public Constraint(String parameter, Integer constraint, String value) {
     this.parameter = parameter;
     this.constraintType = constraint;
-    this.values = values;
+    this.value = value;
   }
 
   public String parameterName() {
@@ -27,7 +27,7 @@ class Constraint {
     return this.constraintType;
   }
 
-  public List<String> values() {
-    return this.values;
+  public String value() {
+    return this.value;
   }
 }
