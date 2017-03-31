@@ -16,4 +16,8 @@ class Atom {
   public List<String> parameters() {
     return this.parameters;
   }
+
+  public boolean isAskable() {
+    return false;
+  }
 }

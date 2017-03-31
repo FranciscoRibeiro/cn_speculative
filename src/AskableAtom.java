@@ -11,4 +11,9 @@ class AskableAtom extends Atom {
   public String informationSource() {
     return this.source;
   }
+
+  @Override
+  public boolean isAskable() {
+    return true;
+  }
 }
