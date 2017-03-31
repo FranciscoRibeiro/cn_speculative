@@ -8,7 +8,7 @@ class AskableAtom extends Atom {
     this.source = source;
   }
 
-  public String informationSource() {
+  public String getSource() {
     return this.source;
   }
 }

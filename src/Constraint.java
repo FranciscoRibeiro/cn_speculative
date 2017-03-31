@@ -18,15 +18,15 @@ class Constraint {
     this.values = values;
   }
 
-  public String parameterName() {
+  public String getParameter() {
     return this.parameter;
   }
 
-  public Integer typeOfConstraint() {
+  public Integer getConstraintType() {
     return this.constraintType;
   }
 
-  public List<String> values() {
+  public List<String> getValues() {
     return this.values;
   }
 }
