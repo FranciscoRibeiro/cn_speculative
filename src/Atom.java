@@ -9,11 +9,11 @@ class Atom {
     this.parameters = parameters;
   }
 
-  public String name() {
+  public String getName() {
     return this.name;
   }
 
-  public List<String> parameters() {
+  public List<String> getParameters() {
     return this.parameters;
   }
 }
