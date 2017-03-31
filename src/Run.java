@@ -73,13 +73,30 @@ public class Run{
     return defaultRules;
   }
 
+  /* Creates first process asking if Matrix is recommended or not */
+  private static List<Process> createFirstAPS(){
+    List<String> firstParams = new ArrayList<>();
+    firstParams.add("Matrix");
+    firstParams.add("A");
+
+    List<Atom> firstGoalSet = new ArrayList<>();
+    Atom firstAtom = new Atom("recommended", firstParams);
+    firstGoalSet.add(firstAtom);
+
+    List<Process> firstAPS = new ArrayList<>();
+    Process firstProcess = new Process(false, null, firstGoalSet, null, null);
+    firstAPS.add(firstProcess);
+
+    return firstAPS;
+  }
+
   public static void main(String[] args){
-    List<Process> aps = new ArrayList<>();
+    List<Process> aps = createFirstAPS();
     List<Process> sps = new ArrayList<>();
     List<Rule> delta = createDefaults();
     List<AskableAtom> aaq = new ArrayList<>();
     List<Rule> rf = new ArrayList<>();
-    List<Rule> cbs = createDefaults();
+    List<Rule> cbs = createDefaults(); //In the beginning, the CBS is the same as Delta
 
     Run run = new Run(aps, sps, delta, aaq, rf, cbs);
   }
