@@ -9,7 +9,7 @@ class SourceDatabase extends Agent {
 
   public SourceDatabase() {
     this.films = new Hashtable<String, Film>();
-    this.films.put("Matrix", new Film(9.0, 180, "fiction", 10));
+    this.films.put("Matrix", new Film(9.0, 180, "sci-fi", 10));
     this.films.put("Frozen", new Film(2.0, 5, "music", 1));
     this.films.put("Harry Potah", new Film(8.2, 150, "magic", 180));
   }
@@ -49,7 +49,9 @@ class SourceDatabase extends Agent {
 
     ACLMessage reply = message.createReply();
     reply.setPerformative(ACLMessage.INFORM);
+    reply.addUserDefinedParameter("PARAMETER", filmParameter);
     reply.addUserDefinedParameter("VALUE", getAnswer(film, filmParameter));
+
     send(reply);
   }
 
