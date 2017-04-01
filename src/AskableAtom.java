@@ -1,4 +1,5 @@
 import java.util.List;
+import java.lang.StringBuilder;
 
 class AskableAtom extends Atom {
   private String source;
@@ -15,5 +16,13 @@ class AskableAtom extends Atom {
   @Override
   public boolean isAskable() {
     return true;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(super.toString());
+    sb.append("@" + source);
+    return sb.toString();
   }
 }
