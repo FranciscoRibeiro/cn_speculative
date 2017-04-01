@@ -1,19 +1,19 @@
 import java.util.List;
 
 class Film {
-  private Float rating;
+  private Double rating;
   private Integer duration;
   private String genre;
   private Integer popularity;
 
-  public Film(Float rating, Integer duration, String genre, Integer popularity) {
+  public Film(Double rating, Integer duration, String genre, Integer popularity) {
     this.rating = rating;
     this.duration = duration;
     this.genre = genre;
     this.popularity= popularity;
   }
 
-  public Float getRating() {
+  public Double getRating() {
     return this.rating;
   }
 
@@ -29,7 +29,7 @@ class Film {
     return this.popularity;
   }
 
-  public void setRating(Float rating) {
+  public void setRating(Double rating) {
     this.rating = rating;
   }
 
