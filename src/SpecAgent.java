@@ -382,7 +382,12 @@ public class SpecAgent extends Agent {
 
     @Override
     public void onWake(){
+      double cbsRating = Double.parseDouble(run.getCBSRating().getConstraints().get(0).value());
+      //Main decisions taken during the second process reduction
+      if (cbsRating >= 9) {
+      }
 
+      }
     }
   }
 }
