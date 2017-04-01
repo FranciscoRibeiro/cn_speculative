@@ -333,12 +333,18 @@ public class SpecAgent extends Agent {
 
     @Override
     public void action() {
-      ACLMessage message = myAgent.receive();
-      int performative = message.getPerformative();
+      ACLMessage message = null;
 
-      if (message != null && performative == ACLMessage.INFORM) {
-        updateCBS(message);
-      } else {
+      if ((message = myAgent.receive()) != null) {
+        int performative = message.getPerformative();
+
+        switch (performative) {
+          case ACLMessage.INFORM:
+            updateCBS(message);
+            break;
+        }
+      }
+      else {
         block();
       }
     }
