@@ -1,4 +1,5 @@
 import java.util.List;
+import java.lang.StringBuilder;
 
 /**
  * Created by kiko on 31-03-2017.
@@ -38,7 +39,6 @@ public class Process {
     return this.ud;
   }
 
-  
   public void setSuspended(boolean suspended) {
     this.suspended = suspended;
   }
@@ -57,5 +57,69 @@ public class Process {
 
   public void setUd(List<AskableAtom> ud) {
     this.ud = ud;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("< ");
+
+    // SAS.
+    if (this.suspended) {
+      sb.append("{");
+      for (AskableAtom atom : this.sas) {
+        sb.append(atom.toString());
+        if (this.sas.indexOf(atom) != (this.sas.size() -1)) {
+          sb.append(",");
+        }
+      }
+      sb.append("}");
+    }
+
+    sb.append("  ⃪ ");
+
+    // C.
+    if ((this.constraints != null) && (this.constraints.size() > 0)) {
+      for (Constraint c : this.constraints) {
+        sb.append(c.toString());
+        if (this.constraints.indexOf(c) != (this.constraints.size() -1)) {
+          sb.append(",");
+        }
+        sb.append(" ");
+      }
+    }
+
+    sb.append("|| ");
+
+    // GS.
+    if ((this.goalSet == null) || (this.goalSet.size() == 0)) {
+      sb.append("∅, ");
+    } else {
+      sb.append("{");
+      for (Atom a : this.goalSet) {
+        sb.append(a.toString());
+        if (this.goalSet.indexOf(a) != (this.goalSet.size() -1)) {
+          sb.append(", ");
+        }
+      }
+      sb.append("}, ");
+    }
+
+    // UD.
+    if ((this.ud == null) || (this.ud.size() == 0)) {
+      sb.append("∅");
+    } else {
+      sb.append("{");
+      for (AskableAtom a : this.ud) {
+        sb.append(a.toString());
+        if (this.ud.indexOf(a) != (this.ud.size() -1)) {
+          sb.append(", ");
+        }
+      }
+      sb.append("}");
+    }
+
+    sb.append(" >");
+    return sb.toString();
   }
 }
