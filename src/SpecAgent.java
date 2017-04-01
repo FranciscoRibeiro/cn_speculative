@@ -307,7 +307,7 @@ public class SpecAgent extends Agent {
         System.out.println(p.toString());
       }
 
-      System.out.println("Current SPS: ");
+      System.out.println("\nCurrent SPS: ");
       List<Process> step13SPS = createStep13SPS();
       for(Process p: step13SPS){
         System.out.println(p.toString());
@@ -340,6 +340,9 @@ public class SpecAgent extends Agent {
 
         switch (performative) {
           case ACLMessage.INFORM:
+            System.out.println("\nThe information source just told me that The Matrix has " +
+                    message.getUserDefinedParameter("PARAMETER") + " = " +
+                    message.getUserDefinedParameter("VALUE"));
             updateCBS(message);
             break;
         }
