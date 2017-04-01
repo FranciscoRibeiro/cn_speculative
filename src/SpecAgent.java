@@ -388,6 +388,131 @@ public class SpecAgent extends Agent {
       super(agent, 10000);
     }
 
+
+    private List<Process> createStep20APS(){
+      List<Process> aps = new ArrayList<>();
+
+      /* Process 5 */
+      List<Constraint> p5_constraints = new ArrayList<>();
+      Constraint p5_c1 = new Constraint("A", Constraint.IN, "yes");
+      Constraint p5_c2 = new Constraint("G", Constraint.NOT_IN, "sci-fi");
+      Constraint p5_c3 = new Constraint("D", Constraint.GT, "60");
+      Constraint p5_c4 = new Constraint("R", Constraint.GT, "7.5");
+      p5_constraints.add(p5_c1);
+      p5_constraints.add(p5_c2);
+      p5_constraints.add(p5_c3);
+      p5_constraints.add(p5_c4);
+
+      List<AskableAtom> p5_ud = new ArrayList<>();
+      List<String> p5_ud_params = new ArrayList<>();
+      p5_ud_params.add("Matrix");
+      p5_ud_params.add("D");
+      AskableAtom p5_aa1 = new AskableAtom("duration", p5_ud_params, "db");
+      p5_ud.add(p5_aa1);
+
+      Process p5 = new Process(false, null, null, p5_constraints, p5_ud);
+
+
+      /* Process 4 */
+      List<Constraint> p4_constraints = new ArrayList<>();
+      Constraint p4_c1 = new Constraint("A", Constraint.IN, "yes");
+      Constraint p4_c2 = new Constraint("R", Constraint.GEQ, "9");
+      p4_constraints.add(p4_c1);
+      p4_constraints.add(p4_c2);
+
+      Process p4 = new Process(false, null, null, p4_constraints, null);
+
+
+      /* Process 6 */
+      List<Constraint> p6_constraints = new ArrayList<>();
+      Constraint p6_c1 = new Constraint("A", Constraint.IN, "yes");
+      Constraint p6_c2 = new Constraint("M", Constraint.IN, "yes");
+      Constraint p6_c3 = new Constraint("L", Constraint.IN, "no");
+      Constraint p6_c4 = new Constraint("D", Constraint.LEQ, "240");
+      Constraint p6_c5 = new Constraint("R", Constraint.GEQ, "8.3");
+      Constraint p6_c6 = new Constraint("P", Constraint.LT, "3");
+      p6_constraints.add(p6_c1);
+      p6_constraints.add(p6_c2);
+      p6_constraints.add(p6_c3);
+      p6_constraints.add(p6_c4);
+      p6_constraints.add(p6_c5);
+      p6_constraints.add(p6_c6);
+
+      List<AskableAtom> p6_ud = new ArrayList<>();
+      List<String> p6_ud_params1 = new ArrayList<>();
+      p6_ud_params1.add("Matrix");
+      p6_ud_params1.add("P");
+      AskableAtom p6_aa1 = new AskableAtom("popularity", p6_ud_params1, "db");
+      p6_ud.add(p6_aa1);
+
+      List<String> p6_ud_params2 = new ArrayList<>();
+      p6_ud_params2.add("Matrix");
+      p6_ud_params2.add("D");
+      AskableAtom p6_aa2 = new AskableAtom("duration", p6_ud_params2, "db");
+      p6_ud.add(p6_aa2);
+
+      Process p6 = new Process(false, null, null, p6_constraints, p6_ud);
+
+      aps.add(p5);
+      aps.add(p4);
+      aps.add(p6);
+
+      return aps;
+    }
+
+    private List<Process> createStep20SPS() {
+      List<Process> sps = new ArrayList<>();
+
+      /* Process 7 */
+      List<AskableAtom> p7_sas = new ArrayList<>();
+      List<String> p7_sas_params = new ArrayList<>();
+      p7_sas_params.add("Matrix");
+      p7_sas_params.add("P");
+      AskableAtom p7_aa1 = new AskableAtom("popularity", p7_sas_params, "db");
+      p7_sas.add(p7_aa1);
+
+      List<Constraint> p7_constraints = new ArrayList<>();
+      Constraint p7_c1 = new Constraint("A", Constraint.IN, "yes");
+      Constraint p7_c2 = new Constraint("T", Constraint.IN, "yes");
+      Constraint p7_c3 = new Constraint("P", Constraint.LEQ, "2");
+      p7_constraints.add(p7_c1);
+      p7_constraints.add(p7_c2);
+      p7_constraints.add(p7_c3);
+
+      List<Atom> p7_gs = new ArrayList<>();
+      List<String> p7_gs_params = new ArrayList<>();
+      p7_gs_params.add("Matrix");
+      Atom p7_a1 = new Atom("exists", p7_gs_params);
+      p7_gs.add(p7_a1);
+
+      Process p7 = new Process(true, p7_sas, p7_gs, p7_constraints, null);
+
+
+      /* Process 8 */
+      List<AskableAtom> p8_sas = new ArrayList<>();
+      List<String> p8_sas_params = new ArrayList<>();
+      p8_sas_params.add("Matrix");
+      p8_sas_params.add("D");
+      AskableAtom p8_aa1 = new AskableAtom("duration", p8_sas_params, "db");
+      p8_sas.add(p8_aa1);
+
+      List<Constraint> p8_constraints = new ArrayList<>();
+      Constraint p8_c1 = new Constraint("A", Constraint.IN, "no");
+      Constraint p8_c2 = new Constraint("L", Constraint.IN, "yes");
+      Constraint p8_c3 = new Constraint("D", Constraint.GT, "240");
+      p8_constraints.add(p8_c1);
+      p8_constraints.add(p8_c2);
+      p8_constraints.add(p8_c3);
+
+      Process p8 = new Process(true, p8_sas, null, p8_constraints, null);
+
+      sps.add(p7);
+      sps.add(p8);
+
+      return sps;
+
+    }
+
     @Override
     public void onWake(){
       boolean recommend = false;
@@ -399,6 +524,18 @@ public class SpecAgent extends Agent {
       }
       if(recommend){ System.out.println("The Matrix is recommended"); }
       else{ System.out.println("The Matrix is NOT recommended"); }
+
+      System.out.println("\nCurrent APS (After Fact Arrival): ");
+      List<Process> step20APS = createStep20APS();
+      for(Process p: step20APS){
+        System.out.println(p.toString());
+      }
+
+      System.out.println("\nCurrent SPS (After Fact Arrival): ");
+      List<Process> step20SPS = createStep20SPS();
+      for(Process p: step20SPS){
+        System.out.println(p.toString());
+      }
     }
   }
 }
