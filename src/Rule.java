@@ -1,4 +1,5 @@
 import java.util.List;
+import java.lang.StringBuilder;
 
 class Rule {
   private Atom head;
@@ -33,5 +34,31 @@ class Rule {
 
   public void setBody(List<Atom> body) {
     this.body = body;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(head.toString());
+    sb.append("  ⃪ ");
+    for (Constraint constraint : this.constraints) {
+      sb.append(constraint.toString());
+      if (this.constraints.indexOf(constraint) != (this.constraints.size() -1)) {
+        sb.append(",");
+      }
+      sb.append(" ");
+    }
+    sb.append("|| ");
+    if (body != null) {
+      for (Atom atom : this.body) {
+        sb.append(atom.toString());
+        if (this.body.indexOf(atom) != (this.body.size() -1)) {
+          sb.append(", ");
+        }
+      }
+    }
+    sb.append(".");
+
+    return sb.toString();
   }
 }
