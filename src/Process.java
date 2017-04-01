@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.StringBuilder;
 
@@ -126,5 +127,11 @@ public class Process {
 
     sb.append(" >");
     return sb.toString();
+  }
+  public void addUD(AskableAtom askAtom){
+    if(this.ud == null){
+      this.ud = new ArrayList<AskableAtom>();
+    }
+    this.ud.add(askAtom);
   }
 }

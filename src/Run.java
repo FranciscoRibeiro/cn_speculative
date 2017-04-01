@@ -1,3 +1,5 @@
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ public class Run{
   private List<Rule> rf; //Returned Facts
   private List<Rule> cbs; //Current Belief Set
   private List<Rule> rules;
+  private ScriptEngine engine;
 
   public Run(List<Process> aps, List<Process> sps, List<Rule> delta, List<AskableAtom> aaq, List<Rule> rf, List<Rule> cbs, List<Rule> rules) {
     this.aps = aps;
@@ -18,6 +21,9 @@ public class Run{
     this.rf = rf;
     this.cbs = cbs;
     this.rules = rules;
+
+    ScriptEngineManager mgr = new ScriptEngineManager();
+    this.engine = mgr.getEngineByName("JavaScript");
   }
 
   private static Atom createAtom(String name, String secondParameter){
@@ -78,7 +84,7 @@ public class Run{
   /* Creates first process asking if Matrix is recommended or not */
   private static List<Process> createFirstAPS(){
     List<String> firstParams = new ArrayList<>();
-    firstParams.add("Matrix");
+    firstParams.add("TheMatrix");
     firstParams.add("A");
 
     List<Atom> firstGoalSet = new ArrayList<>();
@@ -360,6 +366,95 @@ public class Run{
     return rules;
   }
 
+  private void sendQuestion(Atom atom){
+
+  }
+
+  /* Really basic check here
+  * If atom.name is the same as any atom's name present in AAQ, then we consider that AAQ contains that atom
+  * i.e. the question has been asked already
+  * */
+  private boolean inAAQ(Atom atom){
+    for(Atom a: this.aaq){
+      if(a.name().equals(atom.name())){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean inUD(Process process, Atom atom){
+    for(Atom a: process.getUd()){
+      if(a.name().equals(atom.name())){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private List<Constraint> inRF(Atom atom){
+    for(Rule r: this.rf){
+      if(r.getHead().equals(atom.name())){
+        return r.getConstraints();
+      }
+    }
+    return null;
+  }
+
+
+  private boolean isNumber(String string){
+    try{
+      Double.parseDouble(string);
+      return true;
+    }
+    catch(NumberFormatException e){
+      return false;
+    }
+  }
+
+  private boolean checkConsistency(List<Constraint> constraints, Process process){
+    List<Constraint> processConstraints = process.getConstraints();
+    for(Constraint c1: constraints){
+      String pName = c1.parameterName();
+      for(Constraint c2: processConstraints){
+        if(pName.equals(c2.parameterName())){
+          Integer type1 = c1.typeOfConstraint();
+          Integer type2 = c2.typeOfConstraint();
+
+          if(isNumber(c1.value()) && isNumber(c2.value())){
+            double value1 = Double.parseDouble(c1.value());
+            double value2 = Double.parseDouble(c2.value());
+
+            switch (type1){
+              case 2: //Constraint.LEQ
+
+                break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  public void reduction(){
+    List<Constraint> constraints;
+    Process p = this.aps.get(0); //Go to first process in APS
+    this.aps.remove(0); //Remove the process
+    Atom goal = p.getGoalSet().get(0); //Go to first goal in the process
+    p.getGoalSet().remove(0); //Remove it from the goal set
+    if(goal.isAskable()){
+      if(!inAAQ(goal)) {
+        sendQuestion(goal);
+      }
+      if(inUD(p, goal)){
+        this.aps.add(p);
+      }
+      else if((constraints = inRF(goal)) != null){
+        checkConsistency(constraints, p)
+      }
+    }
+  }
+
   public static void main(String[] args){
     List<Process> aps = createFirstAPS();
     List<Process> sps = new ArrayList<>();
@@ -370,6 +465,10 @@ public class Run{
     List<Rule> rules = createRules();
 
     Run run = new Run(aps, sps, delta, aaq, rf, cbs, rules);
+
+
+
+
   }
 
 }
