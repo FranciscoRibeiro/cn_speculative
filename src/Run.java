@@ -480,7 +480,7 @@ public class Run{
     }
   }
 
-  private boolean checkConsistency(List<Constraint> constraints, Process process){
+  /*private boolean checkConsistency(List<Constraint> constraints, Process process){
     List<Constraint> processConstraints = process.getConstraints();
     for(Constraint c1: constraints){
       String pName = c1.parameterName();
@@ -502,9 +502,9 @@ public class Run{
         }
       }
     }
-  }
+  }*/
 
-  public void reduction(){
+  /*public void reduction(){
     List<Constraint> constraints;
     Process p = this.aps.get(0); //Go to first process in APS
     this.aps.remove(0); //Remove the process
@@ -521,7 +521,7 @@ public class Run{
         checkConsistency(constraints, p)
       }
     }
-  }
+  }*/
 
   public static void main(String[] args){
     List<Process> aps = createFirstAPS();

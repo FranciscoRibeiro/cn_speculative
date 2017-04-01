@@ -1,6 +1,5 @@
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.WakerBehaviour;
@@ -314,7 +313,7 @@ public class SpecAgent extends Agent {
         System.out.println(p.toString());
       }
 
-      addBehaviour(new SendRatingQuestionBehaviour(myAgent));
+      addBehaviour(new SendQuestionBehaviour(myAgent));
       addBehaviour(new SecondRunBehaviour(myAgent));
     }
   }
@@ -345,8 +344,8 @@ public class SpecAgent extends Agent {
     }
   }
 
-  class SendRatingQuestionBehaviour extends OneShotBehaviour {
-    public SendRatingQuestionBehaviour(Agent agent) {
+  class SendQuestionBehaviour extends OneShotBehaviour {
+    public SendQuestionBehaviour(Agent agent) {
       super(agent);
     }
 
@@ -382,12 +381,15 @@ public class SpecAgent extends Agent {
 
     @Override
     public void onWake(){
+      boolean recommend = false;
       double cbsRating = Double.parseDouble(run.getCBSRating().getConstraints().get(0).value());
+      String cbsGenre = run.getCBSGenre().getConstraints().get(0).value();
       //Main decisions taken during the second process reduction
-      if (cbsRating >= 9) {
+      if (cbsRating >= 9 && cbsGenre.equals("sci-fi")) {
+        recommend = true;
       }
-
-      }
+      if(recommend){ System.out.println("The Matrix is recommended"); }
+      else{ System.out.println("The Matrix is NOT recommended"); }
     }
   }
 }
