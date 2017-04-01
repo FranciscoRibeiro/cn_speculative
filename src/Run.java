@@ -1,3 +1,8 @@
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.core.Runtime;
+import jade.wrapper.AgentContainer;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.ArrayList;
@@ -24,6 +29,69 @@ public class Run{
 
     ScriptEngineManager mgr = new ScriptEngineManager();
     this.engine = mgr.getEngineByName("JavaScript");
+  }
+
+  public List<Rule> getCbs() {
+    return cbs;
+  }
+
+  public Rule getCBSRating(){
+    for(Rule r: this.cbs){
+      if(r.getHead().name().equals("rating")){
+        return r;
+      }
+    }
+    return null;
+  }
+
+  public Rule getCBSDuration(){
+    for(Rule r: this.cbs){
+      if(r.getHead().name().equals("duration")){
+        return r;
+      }
+    }
+    return null;
+  }
+
+  public Rule getCBSGenre(){
+    for(Rule r: this.cbs){
+      if(r.getHead().name().equals("genre")){
+        return r;
+      }
+    }
+    return null;
+  }
+
+  public Rule getCBSPopularity(){
+    for(Rule r: this.cbs){
+      if(r.getHead().name().equals("popularity")){
+        return r;
+      }
+    }
+    return null;
+  }
+
+  public void updateCBSField(String parameter, String value){
+    Rule r = null;
+    switch(parameter){
+      case "rating":
+        r = getCBSRating();
+        break;
+      case "duration":
+        r = getCBSDuration();
+        break;
+      case "genre":
+        r = getCBSGenre();
+        break;
+      case "popularity":
+        r = getCBSPopularity();
+        break;
+    }
+    //Not intended to use with popularity updates
+    Constraint c = new Constraint(parameter, Constraint.EQ, value);
+    List<Constraint> cList = new ArrayList<>();
+    cList.add(c);
+    r.setConstraints(cList);
   }
 
   private static Atom createAtom(String name, String secondParameter){
@@ -466,7 +534,24 @@ public class Run{
 
     Run run = new Run(aps, sps, delta, aaq, rf, cbs, rules);
 
+    Runtime rt = Runtime.instance();
+    rt.setCloseVM(true);
 
+    // Create a new container.
+    Profile profile = new ProfileImpl();
+    profile.setParameter(Profile.MAIN_HOST, "localhost");
+    profile.setParameter(Profile.MAIN_PORT, "1099");
+    profile.setParameter(Profile.GUI, "true");
+
+    AgentContainer container = rt.createMainContainer(profile);
+    SpecAgent sAgent = new SpecAgent(run);
+    try{
+      container.acceptNewAgent("SpecAgent", sAgent).start();
+      container.start();
+    }
+    catch (Exception e){
+      e.printStackTrace();
+    }
 
 
   }
