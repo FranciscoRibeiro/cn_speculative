@@ -60,12 +60,16 @@ class SourceDatabase extends Agent {
 
     @Override
     public void action() {
-      ACLMessage message = myAgent.receive();
-      int performative = message.getPerformative();
+      ACLMessage message = null;
+      if((message = myAgent.receive()) != null){
+        int performative = message.getPerformative();
 
-      if (message != null && performative == ACLMessage.REQUEST) {
-        reply(message);
-      } else {
+        switch (performative){
+          case ACLMessage.REQUEST:
+            reply(message);
+        }
+      }
+      else {
         block();
       }
     }

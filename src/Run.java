@@ -545,8 +545,10 @@ public class Run{
 
     AgentContainer container = rt.createMainContainer(profile);
     SpecAgent sAgent = new SpecAgent(run);
+    SourceDatabase sourceAgent = new SourceDatabase();
     try{
       container.acceptNewAgent("SpecAgent", sAgent).start();
+      container.acceptNewAgent("SourceDatabase", sourceAgent).start();
       container.start();
     }
     catch (Exception e){
