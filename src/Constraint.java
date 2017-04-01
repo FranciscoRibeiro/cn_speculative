@@ -1,4 +1,5 @@
 import java.util.List;
+import java.lang.StringBuilder;
 
 class Constraint {
   public static final Integer IN      = 0;
@@ -14,9 +15,9 @@ class Constraint {
   private String value;
 
   public Constraint(String parameter, Integer constraint, String value) {
-    this.parameter = parameter;
+    this.parameter      = parameter;
     this.constraintType = constraint;
-    this.value = value;
+    this.value          = value;
   }
 
   public String parameterName() {
@@ -29,5 +30,23 @@ class Constraint {
 
   public String value() {
     return this.value;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(parameter);
+    sb.append(" ");
+    switch (constraintType) {
+      case 0: sb.append("∈ {" + value + "}"); break;
+      case 1: sb.append("∉ {" + value + "}"); break;
+      case 2: sb.append("<= " + value); break;
+      case 3: sb.append(">= " + value); break;
+      case 4: sb.append("< " + value); break;
+      case 5: sb.append("> " + value); break;
+      case 6: sb.append("= " + value); break;
+      default: break;
+    }
+    return sb.toString();
   }
 }
