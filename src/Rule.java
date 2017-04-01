@@ -51,7 +51,12 @@ class Rule {
     sb.append("|| ");
     if (body != null) {
       for (Atom atom : this.body) {
-        sb.append(atom.toString());
+        if (atom instanceof AskableAtom) {
+          AskableAtom tmp = (AskableAtom) atom;
+          sb.append(tmp.toString());
+        } else {
+          sb.append(atom.toString());
+        }
         if (this.body.indexOf(atom) != (this.body.size() -1)) {
           sb.append(", ");
         }

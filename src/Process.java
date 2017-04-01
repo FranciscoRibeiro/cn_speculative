@@ -97,7 +97,12 @@ public class Process {
     } else {
       sb.append("{");
       for (Atom a : this.goalSet) {
-        sb.append(a.toString());
+        if (a instanceof AskableAtom) {
+          AskableAtom tmp = (AskableAtom) a;
+          sb.append(tmp.toString());
+        } else {
+          sb.append(a.toString());
+        }
         if (this.goalSet.indexOf(a) != (this.goalSet.size() -1)) {
           sb.append(", ");
         }
