@@ -123,7 +123,7 @@ public class Run{
     Constraint defaultRatingConstraint = createConstraint("R", Constraint.EQ, "6");
     Rule defaultRatingRule = createDefaultRule(defaultRatingAtom, defaultRatingConstraint);
 
-    /* genre(F, G)@db ← G ∈ {action}|| */
+    /* genre(F, G)@db ← G \u2208 {action}|| */
     Atom defaultGenreAtom = createAtom("genre", "G");
     Constraint defaultGenreConstraint = createConstraint("G", Constraint.IN, "action");
     Rule defaultGenreRule = createDefaultRule(defaultGenreAtom, defaultGenreConstraint);
@@ -183,7 +183,7 @@ public class Run{
   }
 
   private static List<Rule> createRules(){
-    /* recommended(F, A) ← A ∈ {yes}, R ≥ 9||rating(F, R)@db, exists(F). */
+    /* recommended(F, A) ← A \u2208 {yes}, R ≥ 9||rating(F, R)@db, exists(F). */
     Atom head1 = createAtom("recommended", "A");
     Constraint c1 = createConstraint("A", Constraint.IN, "yes");
     Constraint c2 = createConstraint("R", Constraint.GEQ, "9");
@@ -197,7 +197,7 @@ public class Run{
     body1.add(a1);
     Rule rule1 = new Rule(head1, constraints1, body1);
 
-    /* recommended(F, A) ← A ∈ {yes}, G ∈ {sci − f i}, D > 60, R > 7.5||
+    /* recommended(F, A) ← A \u2208 {yes}, G \u2208 {sci − f i}, D > 60, R > 7.5||
     genre(F, G)@db, duration(F, D)@db, rating(F, R)@db, exists(F). */
     Atom head2 = createAtom("recommended", "A");
     Constraint c3 = createConstraint("A", Constraint.IN, "yes");
@@ -220,7 +220,7 @@ public class Run{
     body2.add(a2);
     Rule rule2 = new Rule(head2, constraints2, body2);
 
-    /* recommended(F, A) ← A ∈ {yes}, L ∈ {no}, M ∈ {yes}||tooLong(F, L), masterpiece(F, M). */
+    /* recommended(F, A) ← A \u2208 {yes}, L \u2208 {no}, M \u2208 {yes}||tooLong(F, L), masterpiece(F, M). */
     Atom head3 = createAtom("recommended", "A");
     Constraint c7 = createConstraint("A", Constraint.IN, "yes");
     Constraint c8 = createConstraint("L", Constraint.IN, "no");
@@ -236,7 +236,7 @@ public class Run{
     body3.add(a4);
     Rule rule3 = new Rule(head3, constraints3, body3);
 
-    /* recommended(F, A) ← A ∈ {yes}, T ∈ {yes}||trendingMovie(F, T). */
+    /* recommended(F, A) ← A \u2208 {yes}, T \u2208 {yes}||trendingMovie(F, T). */
     Atom head4 = createAtom("recommended", "A");
     Constraint c10 = createConstraint("A", Constraint.IN, "yes");
     Constraint c11 = createConstraint("T", Constraint.IN, "yes");
@@ -248,7 +248,7 @@ public class Run{
     body4.add(a5);
     Rule rule4 = new Rule(head4, constraints4, body4);
 
-    /* recommended(F, A) ← A ∈ {no}, L ∈ {yes}||tooLong(F, L)@db. */
+    /* recommended(F, A) ← A \u2208 {no}, L \u2208 {yes}||tooLong(F, L)@db. */
     Atom head5 = createAtom("recommended", "A");
     Constraint c12 = createConstraint("A", Constraint.IN, "no");
     Constraint c13 = createConstraint("L", Constraint.IN, "yes");
@@ -260,7 +260,7 @@ public class Run{
     body5.add(a6);
     Rule rule5 = new Rule(head5, constraints5, body5);
 
-    /* recommended(F, A) ← A ∈ {no}, T G ∈ {no}, M ∈ {no}||topGenre(F, T G), masterpiece(F, M). */
+    /* recommended(F, A) ← A \u2208 {no}, T G \u2208 {no}, M \u2208 {no}||topGenre(F, T G), masterpiece(F, M). */
     Atom head6 = createAtom("recommended", "A");
     Constraint c14 = createConstraint("A", Constraint.IN, "no");
     Constraint c15 = createConstraint("TG", Constraint.IN, "no");
@@ -276,7 +276,7 @@ public class Run{
     body6.add(a8);
     Rule rule6 = new Rule(head6, constraints6, body6);
 
-    /* tooLong(F, A) ← A ∈ {yes}, D > 240||duration(F, D)@db, exists(F). */
+    /* tooLong(F, A) ← A \u2208 {yes}, D > 240||duration(F, D)@db, exists(F). */
     Atom head7 = createAtom("tooLong", "A");
     Constraint c17 = createConstraint("A", Constraint.IN, "yes");
     Constraint c18 = createConstraint("D", Constraint.GT, "240");
@@ -290,7 +290,7 @@ public class Run{
     body7.add(a9);
     Rule rule7 = new Rule(head7, constraints7, body7);
 
-    /* tooLong(F, A) ← A ∈ {no}, D ≤ 240||duration(F, D)@db, exists(F). */
+    /* tooLong(F, A) ← A \u2208 {no}, D ≤ 240||duration(F, D)@db, exists(F). */
     Atom head8 = createAtom("tooLong", "A");
     Constraint c19 = createConstraint("A", Constraint.IN, "no");
     Constraint c20 = createConstraint("D", Constraint.LEQ, "240");
@@ -304,7 +304,7 @@ public class Run{
     body8.add(a10);
     Rule rule8 = new Rule(head8, constraints8, body8);
 
-    /* masterpiece(F, A) ← A ∈ {yes}, R ≥ 8.3, P < 3||rating(F, R)@db, popularity(F, P)@db, exists(F). */
+    /* masterpiece(F, A) ← A \u2208 {yes}, R ≥ 8.3, P < 3||rating(F, R)@db, popularity(F, P)@db, exists(F). */
     Atom head9 = createAtom("masterpiece", "A");
     Constraint c21 = createConstraint("A", Constraint.IN, "yes");
     Constraint c22 = createConstraint("R", Constraint.GEQ, "8.3");
@@ -322,7 +322,7 @@ public class Run{
     body9.add(a11);
     Rule rule9 = new Rule(head9, constraints9, body9);
 
-    /* masterpiece(F, A) ← A ∈ {no}, R < 8.3||rating(F, R)@db, exists(F). */
+    /* masterpiece(F, A) ← A \u2208 {no}, R < 8.3||rating(F, R)@db, exists(F). */
     Atom head10 = createAtom("masterpiece", "A");
     Constraint c24 = createConstraint("A", Constraint.IN, "no");
     Constraint c25 = createConstraint("R", Constraint.LT, "8.3");
@@ -336,7 +336,7 @@ public class Run{
     body10.add(a12);
     Rule rule10 = new Rule(head10, constraints10, body10);
 
-    /* masterpiece(F, A) ← A ∈ {no}, P ≥ 3||popularity(F, P)@db, exists(F). */
+    /* masterpiece(F, A) ← A \u2208 {no}, P ≥ 3||popularity(F, P)@db, exists(F). */
     Atom head11 = createAtom("masterpiece", "A");
     Constraint c26 = createConstraint("A", Constraint.IN, "no");
     Constraint c27 = createConstraint("P", Constraint.GEQ, "8.3");
@@ -350,7 +350,7 @@ public class Run{
     body11.add(a13);
     Rule rule11 = new Rule(head11, constraints11, body11);
 
-    /* topGenre(F, A) ← A ∈ {no}, G /∈ {sci−f i, thriller}||genre(F, G)@db, exists(F). */
+    /* topGenre(F, A) ← A \u2208 {no}, G /\u2208 {sci−f i, thriller}||genre(F, G)@db, exists(F). */
     Atom head12 = createAtom("topGenre", "A");
     Constraint c28 = createConstraint("A", Constraint.IN, "no");
     Constraint c29 = createConstraint("G", Constraint.IN, "sci-fi");
@@ -366,7 +366,7 @@ public class Run{
     body12.add(a14);
     Rule rule12 = new Rule(head12, constraints12, body12);
 
-    /* trendingMovie(F, A) ← A ∈ {yes}, P ≤ 2||popularity(F, P)@db, exists(F). */
+    /* trendingMovie(F, A) ← A \u2208 {yes}, P ≤ 2||popularity(F, P)@db, exists(F). */
     Atom head13 = createAtom("trendingMovie", "A");
     Constraint c31 = createConstraint("A", Constraint.IN, "yes");
     Constraint c32 = createConstraint("P", Constraint.LEQ, "2");
@@ -380,42 +380,42 @@ public class Run{
     body13.add(a15);
     Rule rule13 = new Rule(head13, constraints13, body13);
 
-    /* exists(F) ← F ∈ {TheMatrix}||. */
+    /* exists(F) ← F \u2208 {TheMatrix}||. */
     Atom head14 = createSingleAtom("exists", "F");
     Constraint c33 = createConstraint("F", Constraint.IN, "TheMatrix");
     List<Constraint> constraints14 = new ArrayList<>();
     constraints14.add(c33);
     Rule rule14 = new Rule(head14, constraints14, null);
 
-    /* exists(F) ← F ∈ {Inception}||. */
+    /* exists(F) ← F \u2208 {Inception}||. */
     Atom head15 = createSingleAtom("exists", "F");
     Constraint c34 = createConstraint("F", Constraint.IN, "Inception");
     List<Constraint> constraints15 = new ArrayList<>();
     constraints15.add(c34);
     Rule rule15 = new Rule(head15, constraints15, null);
 
-    /* exists(F) ← F ∈ {Memento}||. */
+    /* exists(F) ← F \u2208 {Memento}||. */
     Atom head16 = createSingleAtom("exists", "F");
     Constraint c35 = createConstraint("F", Constraint.IN, "Memento");
     List<Constraint> constraints16 = new ArrayList<>();
     constraints16.add(c35);
     Rule rule16 = new Rule(head16, constraints16, null);
 
-    /* exists(F) ← F ∈ {ThePrestige}||. */
+    /* exists(F) ← F \u2208 {ThePrestige}||. */
     Atom head17 = createSingleAtom("exists", "F");
     Constraint c36 = createConstraint("F", Constraint.IN, "ThePrestige");
     List<Constraint> constraints17 = new ArrayList<>();
     constraints17.add(c36);
     Rule rule17 = new Rule(head17, constraints17, null);
 
-    /* exists(F) ← F ∈ {TheLorfOfTheRings}||. */
+    /* exists(F) ← F \u2208 {TheLorfOfTheRings}||. */
     Atom head18 = createSingleAtom("exists", "F");
     Constraint c37 = createConstraint("F", Constraint.IN, "TheLorfOfTheRings");
     List<Constraint> constraints18 = new ArrayList<>();
     constraints18.add(c37);
     Rule rule18 = new Rule(head18, constraints18, null);
 
-    /* exists(F) ← F ∈ {Arrival}||. */
+    /* exists(F) ← F \u2208 {Arrival}||. */
     Atom head19 = createSingleAtom("exists", "F");
     Constraint c38 = createConstraint("F", Constraint.IN, "Arrival");
     List<Constraint> constraints19 = new ArrayList<>();

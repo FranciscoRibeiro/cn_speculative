@@ -40,7 +40,7 @@ class Rule {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append(head.toString());
-    sb.append("  ⃪ ");
+    sb.append("\u2190 ");
     for (Constraint constraint : this.constraints) {
       sb.append(constraint.toString());
       if (this.constraints.indexOf(constraint) != (this.constraints.size() -1)) {

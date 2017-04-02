@@ -306,7 +306,6 @@ public class SpecAgent extends Agent {
       for(Process p: step13APS){
         System.out.println(p.toString());
       }
-
       System.out.println("\nCurrent SPS: ");
       List<Process> step13SPS = createStep13SPS();
       for(Process p: step13SPS){

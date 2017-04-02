@@ -77,7 +77,7 @@ public class Process {
       sb.append("}");
     }
 
-    sb.append("  ⃪ ");
+    sb.append("\u2190 ");
 
     // C.
     if ((this.constraints != null) && (this.constraints.size() > 0)) {
@@ -94,7 +94,7 @@ public class Process {
 
     // GS.
     if ((this.goalSet == null) || (this.goalSet.size() == 0)) {
-      sb.append("∅, ");
+      sb.append("\u2205, ");
     } else {
       sb.append("{");
       for (Atom a : this.goalSet) {
@@ -113,7 +113,7 @@ public class Process {
 
     // UD.
     if ((this.ud == null) || (this.ud.size() == 0)) {
-      sb.append("∅");
+      sb.append("\u2205");
     } else {
       sb.append("{");
       for (AskableAtom a : this.ud) {

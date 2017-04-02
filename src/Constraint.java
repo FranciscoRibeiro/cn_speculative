@@ -38,8 +38,8 @@ class Constraint {
     sb.append(parameter);
     sb.append(" ");
     switch (constraintType) {
-      case 0: sb.append("∈ {" + value + "}"); break;
-      case 1: sb.append("∉ {" + value + "}"); break;
+      case 0: sb.append("\u2208 {" + value + "}"); break;
+      case 1: sb.append("\u2209 {" + value + "}"); break;
       case 2: sb.append("<= " + value); break;
       case 3: sb.append(">= " + value); break;
       case 4: sb.append("< " + value); break;
